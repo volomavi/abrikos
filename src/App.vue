@@ -1,26 +1,67 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <the-header title="Fun with Curie!"></the-header>
+    <the-resources></the-resources>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import TheHeader from './components/layouts/TheHeader.vue';
+import TheResources from './components/learning-resources/TheResources.vue';
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    TheHeader,
+    TheResources
   }
-}
+};
+
+// const qdata = {
+//   prompt: 'Write a poem about a dog wearing skis',
+//   temperature: 0.5,
+//   max_tokens: 64,
+//   top_p: 1.0,
+//   frequency_penalty: 0.0,
+//   presence_penalty: 0.0
+// };
+
+// fetch('https://api.openai.com/v1/engines/text-ada-001/completions', {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     Authorization: `Bearer ${process.env.OPENAI_SECRET}`,
+//   },
+//   body: JSON.stringify(qdata)
+// })
+//   .then(response => {
+//     if (response.ok) {
+//       return response.json();
+//     } else {
+//       alert('Server returned ' + response.status + ' : ' + response.statusText);
+//     }
+//   })
+  // .then(response => {
+  //   this.result = response.body;
+  //   this.responseAvailable = true;
+  // })
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
 }
 </style>
