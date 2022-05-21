@@ -60,6 +60,7 @@ label {
   font-weight: bold;
   display: block;
   margin-bottom: 0.5rem;
+  color: #004c3f;
 }
 
 input,
@@ -69,13 +70,14 @@ textarea {
   font: inherit;
   padding: 0.15rem;
   border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: #3a0061;
-  background-color: #f7ebff;
+  /* background-color: #f7ebff; */
+  box-shadow: 0 0 0 2px #008060;
 }
 
 .form-control {

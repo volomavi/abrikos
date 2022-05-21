@@ -53,7 +53,7 @@ export default {
 }
 
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif, sans-serif;
 }
 
 body {
@@ -63,5 +63,6 @@ body {
 h2 {
   display: flex;
   justify-content: center;
+  color: #004c3f;
 }
 </style>

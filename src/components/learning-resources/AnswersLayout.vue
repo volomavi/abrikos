@@ -37,6 +37,7 @@ header {
 h3 {
   font-size: 1.25rem;
   margin: -0.2rem 0 0.3rem 0;
+  color: #004c3f;
 }
 
 p {
