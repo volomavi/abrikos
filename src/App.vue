@@ -16,8 +16,6 @@ export default {
   },
 };
 
-// let jsonResponse
-
 async function fetchText() {
   const qdata = {
     prompt: "Write a poem",
@@ -28,23 +26,23 @@ async function fetchText() {
     presence_penalty: 0.0,
   };
 
-  fetch("https://api.openai.com/v1/engines/text-ada-001/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.VUE_APP_openAIToken}`,
-    },
-    body: JSON.stringify(qdata),
-  }).then((response) => {
-    if (response.ok) {
-      // jsonResponse = response.json();
-      // console.log(response.json())
-      return response.json();
-    } else {
-      alert("Server returned " + response.status + " : " + response.statusText);
-    }
-  });
+  try { 
+    let response = await fetch("https://api.openai.com/v1/engines/text-ada-001/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.VUE_APP_openAIToken}`,
+      },
+      body: JSON.stringify(qdata),
+    }) 
+    return await response.json();
+
+  } catch (error) {
+    console.log(error)
+  }
+  
 }
+
 
 async function showText() {
   let answers = await fetchText();
@@ -62,20 +60,9 @@ async function showText() {
   //   markup += markupSegment;                        
   // });
   console.log(`${answers} answers`)
+  console.log(answers.choices[0].text)
   console.log(`${markup} markup`)
-  // console.log(jsonResponse)
 
-
-  // markup += answers.id
-  // let container = document.querySelector('.container');
-  // if (markup){
-  //   container.innerHTML = `${markup}hi`;
-  //   console.log('markup hits')
-  // } else {
-  // container.innerHTML = `bye`;
-  //   console.log('markup doesnt')
-
-  // }
 
 }
 
