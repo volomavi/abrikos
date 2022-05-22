@@ -92,7 +92,6 @@ export default {
     },
     async askQuestion(prompt) {
       let answers = await this.fetchText(prompt);
-      console.log(answers.choices[0].text);
       const newQuestion = {
         id: new Date().toISOString(),
         prompt: `Q: ${prompt}`,
