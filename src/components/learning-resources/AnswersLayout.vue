@@ -8,9 +8,9 @@
         </base-button>
       </header>
       <p>{{ response }}</p>
-      <nav>
+      <!-- <nav>
         <a :href="link">Does Google agree?</a>
-      </nav>
+      </nav> -->
     </base-card>
   </li>
 </template>

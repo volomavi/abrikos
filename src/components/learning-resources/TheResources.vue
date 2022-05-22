@@ -19,65 +19,95 @@
 </template>
 
 <script>
-import StoredResources from './StoredResources.vue';
-import AskQuestion from './AskQuestion.vue';
+import StoredResources from "./StoredResources.vue";
+import AskQuestion from "./AskQuestion.vue";
 
 export default {
   components: {
     StoredResources,
-    AskQuestion
+    AskQuestion,
   },
   data() {
     return {
-      selectedTab: 'ask-question',
+      selectedTab: "ask-question",
       storedResources: [
         {
-          id: 'sample0',
-          prompt: 'Q: Is the moon made out of cheese?',
-          response: 'A: No, the moon is not made out of cheese.'
+          id: "sample0",
+          prompt: "Q: Is the moon made out of cheese?",
+          response: "A: No, the moon is not made out of cheese.",
         },
         {
-          id: 'sample2',
-          prompt: 'Q: What is your favourite type of food?',
+          id: "sample1",
+          prompt: "Q: What is your favourite type of food?",
           response:
-            'My favourite type of food is anything that I can put in my mouth!'
-        }
-      ]
+            "A: My favourite type of food is anything that I can put in my mouth!",
+        },
+      ],
     };
   },
   provide() {
     return {
       resources: this.storedResources,
       askQuestion: this.askQuestion,
-      deleteResource: this.removeResource
+      deleteResource: this.removeResource,
     };
   },
   computed: {
     storedResButtonMode() {
-      return this.selectedTab === 'stored-resources' ? null : 'flat';
+      return this.selectedTab === "stored-resources" ? null : "flat";
     },
     addResButtonMode() {
-      return this.selectedTab === 'ask-question' ? null : 'flat';
-    }
+      return this.selectedTab === "ask-question" ? null : "flat";
+    },
   },
   methods: {
     setSelectedTab(tab) {
       this.selectedTab = tab;
     },
-    askQuestion(prompt, response, url) {
+    async fetchText(prompt) {
+      const qdata = {
+        prompt: prompt,
+        temperature: 0.5,
+        max_tokens: 64,
+        top_p: 1.0,
+        frequency_penalty: 0.0,
+        presence_penalty: 0.0,
+      };
+      try {
+        let response = await fetch(
+          "https://api.openai.com/v1/engines/text-ada-001/completions",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${process.env.VUE_APP_openAIToken}`,
+            },
+            body: JSON.stringify(qdata),
+          }
+        );
+        return await response.json();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async askQuestion(prompt) {
+      let answers = await this.fetchText(prompt);
+      console.log(answers.choices[0].text);
       const newQuestion = {
         id: new Date().toISOString(),
-        prompt: prompt,
-        response: response,
-        link: url
+        prompt: `Q: ${prompt}`,
+        response: `A: ${answers.choices[0].text}`,
       };
       this.storedResources.unshift(newQuestion);
-      this.selectedTab = 'stored-resources';
+      this.selectedTab = "stored-resources";
     },
+
     removeResource(resId) {
-      const resIndex = this.storedResources.findIndex(res => res.id === resId);
+      const resIndex = this.storedResources.findIndex(
+        (res) => res.id === resId
+      );
       this.storedResources.splice(resIndex, 1);
-    }
-  }
+    },
+  },
 };
 </script>

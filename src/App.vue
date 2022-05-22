@@ -16,57 +16,6 @@ export default {
   },
 };
 
-async function fetchText() {
-  const qdata = {
-    prompt: "Write a poem",
-    temperature: 0.5,
-    max_tokens: 64,
-    top_p: 1.0,
-    frequency_penalty: 0.0,
-    presence_penalty: 0.0,
-  };
-
-  try { 
-    let response = await fetch("https://api.openai.com/v1/engines/text-ada-001/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.VUE_APP_openAIToken}`,
-      },
-      body: JSON.stringify(qdata),
-    }) 
-    return await response.json();
-
-  } catch (error) {
-    console.log(error)
-  }
-  
-}
-
-
-async function showText() {
-  let answers = await fetchText();
-  let markup = "hi";
-  // answers.forEach((answer) => {
-  //   let markupSegment = `<div class="reply">
-  //                         <p>${answer[0].text}2</p>;
-  //                         <p>${answer[0]}3</p>;
-  //                         <p>${answer}3</p>;
-  //                         <p>${answers}3</p>;
-  //                         <p>3</p>;
-                          
-
-  //                       </div>`
-  //   markup += markupSegment;                        
-  // });
-  console.log(`${answers} answers`)
-  console.log(answers.choices[0].text)
-  console.log(`${markup} markup`)
-
-
-}
-
-showText()
 </script>
 
 <style>
