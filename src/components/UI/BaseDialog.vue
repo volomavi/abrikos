@@ -69,6 +69,11 @@ header h2 {
   margin: 0;
 }
 
+p {
+  display: flex;
+  justify-content: center;
+}
+
 section {
   padding: 1rem;
 }

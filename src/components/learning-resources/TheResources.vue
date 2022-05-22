@@ -1,6 +1,14 @@
 <template>
-  <h2>Welcome to OpenAI's text-curie-001 AI engine.</h2>
-
+  <div class="introduction">
+    <h2>Welcome to OpenAI's text-curie-001 AI engine.</h2>
+    <p>
+      OpenAI is an artificial intelligence (AI) research laboratory consisting
+      of the for-profit corporation OpenAI LP and its parent company, the
+      non-profit OpenAI Inc. The company, considered a competitor to DeepMind,
+      conducts research in the field of AI with the stated goal of promoting and
+      developing friendly AI in a way that benefits humanity as a whole.
+    </p>
+  </div>
   <base-card>
     <base-button
       @click="setSelectedTab('ask-question')"
@@ -38,9 +46,9 @@ export default {
         },
         {
           id: "sample1",
-          prompt: "Q: What is your favourite type of food?",
+          prompt: "Q: Whats heavier, a pound of feathers or a pound of nails?",
           response:
-            "A: My favourite type of food is anything that I can put in my mouth!",
+            "A: Nails are heavier.",
         },
       ],
     };
@@ -75,7 +83,7 @@ export default {
       };
       try {
         let response = await fetch(
-          "https://api.openai.com/v1/engines/text-ada-001/completions",
+          "https://api.openai.com/v1/engines/text-curie-001/completions",
           {
             method: "POST",
             headers: {
@@ -110,3 +118,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.introduction {
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  margin: 0 auto;
+}
+</style>
